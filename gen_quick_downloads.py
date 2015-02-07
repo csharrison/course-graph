@@ -30,9 +30,9 @@ def gen_quick_downloads():
     download_semesters(semesters)
     parse_and_save_semesters(semesters)
     courses = merge_semesters(semesters)
-    open('banner.xml', 'w').write(banner.courses_to_xml(courses).encode('utf8'))
+    #open('banner.xml', 'w').write(banner.courses_to_xml(courses).encode('utf8'))
     open('banner.json', 'w').write(banner.courses_to_json(courses).encode('utf8'))
-    open('banner.pickle', 'w').write(courses_to_pickle(courses))
+    #open('banner.pickle', 'w').write(courses_to_pickle(courses))
 
 def courses_to_pickle(courses):
     # for the pickle to not depend on importing banner.py, we need to mirror the
