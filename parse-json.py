@@ -1,4 +1,5 @@
 import json
+import pprint
 
 if __name__ == "__main__":
 	parsed = []
@@ -14,4 +15,5 @@ if __name__ == "__main__":
 			}
 			parsed.append(n)
 	with open('parsed-json.json', 'w') as f:
-		json.dump(parsed, f)
+                pprint.pprint(parsed, f)
+
