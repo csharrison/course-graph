@@ -9,6 +9,9 @@ $(function() {
           .css({
             'background-color': '#FA4D70',
             'content': 'data(number)',
+            'text-outline-color' : 'white',
+            'text-outline-width' : '.5px',
+            'font-weight': 'bold',
             'background-opacity': '.75',
             'shape':'octagon'
           })
@@ -52,6 +55,9 @@ $(function() {
       no_connections.append($("<li>"+elem.data().title+"</li>"));
     });
     cy.remove(cy.nodes().not(connected));
+    cy.remove(cy.edges().filter(function(i, elem){
+      return elem.data().source === elem.data().target;
+    }));
 
     cy.nodes().forEach(function(element, i, eles) {
       width = element.indegree()*3 + 20;
@@ -71,6 +77,16 @@ $(function() {
         color = valid_colors[num];
       }
       element.css('background-color', color);
+    });
+
+    cy.edges().each(function(i, elem){
+      var d = elem.data();
+      if (d.type === 'rec') {
+        elem.css({
+            'line-color': 'rgba(100,150,0,.5)',
+            'target-arrow-color': 'rgba(50,150,0,.5)',
+        });
+      }
     });
 
     cy.layout({
