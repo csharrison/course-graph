@@ -111,5 +111,17 @@ $(function() {
       reset(code);
     }
   });
+
+  $("#sidebar h4").click(function(e){
+    var t = $(this);
+    var s = t.find('span');
+    t.next().toggle();
+    if (s.html() === '▶') {
+      s.html('▼');
+    } else {
+      s.html('▶');
+    }
+
+  });
   reset('CSCI');
 });
