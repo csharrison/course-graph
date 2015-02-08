@@ -44,7 +44,7 @@ $(function() {
   padding: 30, // padding on fit
   boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
   random: false, // whether to use random initial positions
-  infinite: false, // overrides all other options for a forces-all-the-time mode
+  infinite: true, // overrides all other options for a forces-all-the-time mode
   ready: undefined, // callback on layoutready
   stop: undefined, // callback on layoutstop
 
@@ -53,8 +53,6 @@ $(function() {
   repulsion: 1000,
   damping: 0.5
   })
-
-  var bfs = cy.elements().bfs('#a', function(){}, true);
 
   cy.on('tap', 'node', {}, function(evt) {
     var node = evt.cyTarget
