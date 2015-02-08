@@ -1,7 +1,35 @@
 $(function() {
+
+  function fillDetails(evt) {
+    var node = evt.cyTarget
+    var courseCode = $('<p></p>').text(node.data().code);
+    var courseTitle = $('<p></p>').text(node.data().title);
+    var iHaveTaken = $("<input type='checkbox'>I've taken this class<br>");
+    var courseDescription = $('<p></p>').text(node.data().description);
+
+    if (localStorage[node.data().id]) {
+      iHaveTaken.prop('checked', true);
+    }
+    iHaveTaken.bind('change', function(){
+      if (iHaveTaken.prop('checked')) {
+        node.css('background-color', 'green');
+        localStorage[node.data().id] = true;
+      } else {
+        node.css('background-color', node.data().color);
+        localStorage[node.data().id] = false;
+      }
+    });
+    $('#node_details').html('');
+    $('#node_details').append(courseCode);
+    $("#node_details").append(iHaveTaken);
+    $('#node_details').append(courseTitle);
+    $('#node_details').append(courseDescription);
+  }
+
   function reset(dep) {
     window.dep = dep;
     document.title = dep+ "@Brown";
+    $("#node_details").html('');
     window.cy = cytoscape({
       container: document.getElementById('graph'),
 
@@ -89,7 +117,12 @@ $(function() {
         var num = Math.floor(Math.random() * valid_colors.length);
         color = valid_colors[num];
       }
-      element.css('background-color', color);
+      data.color = color;
+      if (localStorage[data.id]) {
+        element.css('background-color', 'green');
+      } else {
+        element.css('background-color', color);
+      }
     });
 
     cy.edges().each(function(i, elem){
@@ -121,17 +154,7 @@ $(function() {
       damping: 0.5
     });
 
-    cy.on('tap', 'node', {}, function(evt) {
-      var node = evt.cyTarget
-      var courseCode = $('<p></p>').text(node.data().code);
-      var courseTitle = $('<p></p>').text(node.data().title);
-      var courseDescription = $('<p></p>').text(node.data().description);
-
-      $('#node_details').html('');
-      $('#node_details').append(courseCode);
-      $('#node_details').append(courseTitle);
-      $('#node_details').append(courseDescription);
-    });
+    cy.on('tap', 'node', {}, fillDetails);
   }
   $("#department_form").submit(function(e){
     e.preventDefault();

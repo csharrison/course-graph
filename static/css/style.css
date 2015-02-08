@@ -31,6 +31,11 @@ img {
   height:90%;
   overflow: auto;
 }
+
+#department {
+  width: 20%;
+}
+
 #sidebar #lists {
   overflow: auto;
 }
