@@ -14,11 +14,14 @@ body, h1, h2, h3, h4, h5, h6, h7, p, a {
 
 #sidebar {
   width: 300px;
-  background: rgba(221, 221, 221 ,0.9);
+  background: rgba(205, 218, 236, 0.9);
   border-right: solid 1px #000;
   border-bottom: solid 1px #000;
   position: fixed;
   z-index: 1;
+  font-family: Helvetica;
+  font-color: rgba(95, 95, 95);
+  padding: 1%;
 }
 
 #sidebar h2 {
