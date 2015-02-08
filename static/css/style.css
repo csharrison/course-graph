@@ -2,7 +2,8 @@ body, h1, h2, h3, h4, h5, h6, h7, p, a {
   margin: 20px;
   padding: 0;
   color: rgba(95, 95, 95);
-  text-align: justify;
+  text-align: left;
+  opacity: 1;
 }
 
 #graph {
@@ -16,7 +17,8 @@ body, h1, h2, h3, h4, h5, h6, h7, p, a {
 
 #sidebar {
   width: 300px;
-  background: rgba(205, 218, 236, 0.9);
+  background: #F99679;
+  opacity: 0.85;
 
   position: fixed;
   z-index: 1;
@@ -26,4 +28,5 @@ body, h1, h2, h3, h4, h5, h6, h7, p, a {
 
 #sidebar h2 {
   text-align: center;
+
 }

@@ -7,7 +7,8 @@ $(function() {
         .css({
           'background-color': '#FA4D70',
           'content': 'data(code)',
-          'background-opacity': '.75'
+          'background-opacity': '.75',
+          'shape':'octagon'
         })
       .selector('edge')
         .css({
