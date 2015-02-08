@@ -5,7 +5,7 @@ $(function() {
     style: cytoscape.stylesheet()
       .selector('node')
         .css({
-          'background-color': 'data(color)',
+          'background-color': '#FA4D70',
           'content': 'data(code)',
           'background-opacity': '.75'
         })
