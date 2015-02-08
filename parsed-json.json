@@ -1,4 +1,4 @@
-{'edges': [{'data': {'id': '0-81',
+window.elements = {'edges': [{'data': {'id': '0-81',
                      'source': '0',
                      'target': '81',
                      'type': 'pre'}},
