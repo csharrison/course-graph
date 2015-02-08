@@ -1,29 +1,31 @@
 $(function() {
-  var cy = cytoscape({
+  window.cy = cytoscape({
     container: document.getElementById('graph'),
 
     style: cytoscape.stylesheet()
       .selector('node')
         .css({
-          'background-color': '#362B30',
-          'content': 'data(number)'
+          'background-color': '#FA4D70',
+          'content': 'data(code)',
+          'background-opacity': '.75'
         })
       .selector('edge')
         .css({
           'target-arrow-shape': 'triangle',
-          'width': 7,
+          'width': 4,
           'line-color': '#E38576',
-          'target-arrow-color': '#E38576'
+          'target-arrow-color': '#E38576',
+          'background-opacity': '.5'
 
         })
 
       .selector('.highlighted')
         .css({
-          'background-color': '#61bffc',
-          'line-color': '#61bffc',
-          'target-arrow-color': '#61bffc',
+          'background-color': '#FA4D70',
+          'line-color': '#FA4D70',
+          'target-arrow-color': '#FA4D70',
           'transition-property': 'background-color, line-color, target-arrow-color',
-          'transition-duration': '2.0s'
+          'transition-duration': 'inf+s'
         }),
 
     elements: window.elements,
@@ -37,7 +39,13 @@ $(function() {
     width = element.indegree()*4 + 20;
     element.css('width', width);
     element.css('height', width);
-    console.log('id: ', element.data().code, 'css: ', width, element.css().width);
+  });
+
+  var valid_colors = ['#D9B48F','#FA4D70','#A19887','#C59B8F','#362B30'];
+  cy.nodes().each(function(i,element){
+    var data = element.data();
+    var num = Math.floor(Math.random() * valid_colors.length);
+    element.css('background-color',valid_colors[num]);
   });
 
   cy.layout({
