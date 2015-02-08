@@ -8,22 +8,26 @@ $(function() {
     style: cytoscape.stylesheet()
       .selector('node')
         .css({
+          'background-color': '#362B30',
           'content': 'data(code)'
+          
         })
       .selector('edge')
         .css({
           'target-arrow-shape': 'triangle',
-          'width': 4,
-          'line-color': '#ddd',
-          'target-arrow-color': '#ddd'
+          'width': 7,
+          'line-color': '#E38576',
+          'target-arrow-color': '#E38576'
+
         })
+
       .selector('.highlighted')
         .css({
           'background-color': '#61bffc',
           'line-color': '#61bffc',
           'target-arrow-color': '#61bffc',
           'transition-property': 'background-color, line-color, target-arrow-color',
-          'transition-duration': '0.5s'
+          'transition-duration': '2.0s'
         }),
 
     elements: window.elements,
