@@ -7,7 +7,20 @@
     <body>
         <div id="sidebar">
            <h2>Course Visualizer</h2>
+           <form id="department_form">
+            <label for="department">Department Code</label>
+            <input type="text" id="department" />
+            <input type="submit" />
+           </form>
            <div id="node_details"></div>
+           <div id="lists">
+               Big Intro Classes:
+               <ul id="too_big">
+               </ul>
+               No Connections:
+               <ul id="no_connections">
+               </ul>
+           </div>
         </div>
         <div id="graph"></div>
         <script type="text/javascript" src="static/js/parsed-json.js"></script>

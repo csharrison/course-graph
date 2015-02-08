@@ -15,9 +15,9 @@ def find_prereqs(description, departments, courses):
 	pre_maybe = None
 	rec_maybe = None
 	if pidx != -1:
-		pre_maybe = description[pidx: description.rfind('.', pidx)]
+		pre_maybe = description[pidx: description.find('.', pidx)]
 	if ridx != -1:
-		rec_maybe = description[ridx: description.rfind('.', ridx)]
+		rec_maybe = description[ridx: description.find('.', ridx)]
 
 	def parse(s):
 		if s == None: return []
