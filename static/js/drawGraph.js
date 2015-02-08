@@ -1,14 +1,14 @@
 console.log('hello world!');
 
 $(function() {
-  console.log('on DOM load', document.getElementById('graph')); 
+  console.log('on DOM load', document.getElementById('graph'));
   var cy = cytoscape({
     container: document.getElementById('graph'),
-    
+
     style: cytoscape.stylesheet()
       .selector('node')
         .css({
-          'content': 'data(id)'
+          'content': 'data(code)'
         })
       .selector('edge')
         .css({
@@ -25,17 +25,20 @@ $(function() {
           'transition-property': 'background-color, line-color, target-arrow-color',
           'transition-duration': '0.5s'
         }),
-    
+
     elements: window.elements,
-    
+
     layout: {
-      name: 'breadthfirst',
+      name: 'cose',
       directed: true,
       roots: '#a',
       padding: 10
     }
   });
-
+  var edges = cy.edges()
+  var nodes = cy.nodes()
+  var connected = edges.connectedNodes();
+  cy.remove(nodes.not(connected));
   console.log('drawing graph');
   var bfs = cy.elements().bfs('#a', function(){}, true);
 });
