@@ -1,6 +1,7 @@
 $(function() {
   function reset(dep) {
     window.dep = dep;
+    document.title = dep+ "@Brown";
     window.cy = cytoscape({
       container: document.getElementById('graph'),
 
@@ -39,13 +40,22 @@ $(function() {
     var nodes = cy.nodes()
     var no_connections = $("#no_connections");
     var too_big = $("#too_big");
+    $("#lists span").html('▶');
     too_big.html('');
     no_connections.html('');
     window.intro = nodes.filter(function(i, elem) {
       return elem.indegree() > 13;
-    }).each(function(i, elem) {
+    });
+
+    no_connections.hide();
+    too_big.hide();
+    $("#lists h4").show();
+    intro.each(function(i, elem) {
       too_big.append($("<li>"+elem.data().title+"</li>"));
     });
+    if (intro.length === 0) {
+      $("#too_big_title").hide();
+    }
 
     cy.remove(intro);
 
@@ -54,6 +64,9 @@ $(function() {
     cy.nodes().not(connected).each(function(i, elem) {
       no_connections.append($("<li>"+elem.data().title+"</li>"));
     });
+    if (cy.nodes().not(connected).length === 0) {
+      $("#no_connections_title").hide();
+    }
     cy.remove(cy.nodes().not(connected));
     cy.remove(cy.edges().filter(function(i, elem){
       return elem.data().source === elem.data().target;
