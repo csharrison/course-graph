@@ -1,8 +1,6 @@
 import json
 import pprint
 
-
-
 def find_prereqs(description, departments, courses):
 	prereqs = 'Prerequisite'
 	recommended = 'Recommended'
@@ -47,32 +45,24 @@ def find_prereqs(description, departments, courses):
 
 if __name__ == "__main__":
 	nodes = []
-	departments = set()
+	departments = {}
 	courses = {}
 	parsed = {}
 	with open('banner.json', 'r') as f:
 		s = json.load(f)
 		i = 0
 		for item in s:
-			if item['name'].find('CSCI') == -1:
-				continue
-
-			try:
-				d = str(item['description'])
-			except UnicodeEncodeError:
-				d = ""
-				#print item['description']
-			name = str(item['name'])
+			d = (item['description'])
+			name = (item['name'])
 			dep = name.split(' ')[0]
 			if dep not in departments:
-				departments.add(dep)
-			try:
-				title = str(item['title'])
-			except UnicodeEncodeError:
-				title = name
+				departments[dep] = {'nodes' : [], 'edges': []}
+
+			title = (item['title'])
 			n = { 'data' : {
 				'title': title,
 				'code': name,
+				'dep' : dep,
 				'number': name.split(' ')[-1],
 				'description' : d,
 				'prereqs': [],
@@ -80,12 +70,13 @@ if __name__ == "__main__":
 				'id' : str(i)
 			}}
 			i += 1
-			courses[name] = n
+			departments[dep]['nodes'].append(n)
 			nodes.append(n)
+			courses[name] = n
 
-		edges = []
 		for item in nodes:
 			item = item['data']
+			dep = item['dep']
 			(pre, rec) = find_prereqs(item['description'], departments, courses)
 			item['prereqs'] = pre
 			item['recommended'] = rec
@@ -98,24 +89,23 @@ if __name__ == "__main__":
 							'source': item['id'],
 							'target' : course['id'],
 							'id' : item['id']+'-'+course['id'],
-							'type' : t
+							'type' : t,
+							'source_code': item['code'],
+							'target_code': course['code'],
+							'outside': course['dep'] != item['dep']
 						}
 					}
 					es.append(e)
 				return es
-			edges.extend(get_edges(pre, 'pre'))
-			edges.extend(get_edges(rec, 'rec'))
 
-		parsed = {
-			'nodes' : nodes,
-			'edges' : edges
-		}
-
-
-
+			all_edges = get_edges(pre, 'pre')
+			all_edges.extend(get_edges(rec, 'rec'))
+			for e in all_edges:
+				edge = e['data']
+				if edge and departments[dep]['nodes'].count(courses[edge['target_code']]) == 0:
+					departments[dep]['nodes'].append(courses[edge['target_code']])
+			departments[dep]['edges'].extend(all_edges)
 
 	with open('static/js/parsed-json.js', 'w') as f:
-
-		s = json.dumps(parsed)
+		s = json.dumps(departments, ensure_ascii=False, indent=4).encode('utf8')
 		f.write('window.elements = ' + s)
-

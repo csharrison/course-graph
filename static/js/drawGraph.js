@@ -28,7 +28,7 @@ $(function() {
           'transition-duration': 'inf+s'
         }),
 
-    elements: window.elements,
+    elements: window.elements['CSCI'],
   });
   var edges = cy.edges()
   var nodes = cy.nodes()
