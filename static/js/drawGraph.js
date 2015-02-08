@@ -54,8 +54,6 @@ $(function() {
   damping: 0.5
   })
 
-  var bfs = cy.elements().bfs('#a', function(){}, true);
-
   cy.on('tap', 'node', {}, function(evt) {
     var node = evt.cyTarget
     var courseCode = $('<p></p>').text(node.data().code);
