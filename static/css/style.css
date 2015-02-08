@@ -12,9 +12,10 @@ body, h1, h2, h3, h4, h5, h6, h7, p, a {
 }
 
 #sidebar {
-  height: 100px;
+  height: 100%;
   width: 300px;
   background-color: #ddd;
+  border-right: solid 1px #000;
 }
 
 #sidebar h2 {
