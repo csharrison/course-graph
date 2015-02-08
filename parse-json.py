@@ -73,6 +73,7 @@ if __name__ == "__main__":
 			n = { 'data' : {
 				'title': title,
 				'code': name,
+				'number': name.split(' ')[-1],
 				'description' : d,
 				'prereqs': [],
 				'recommended' : [],
@@ -113,6 +114,8 @@ if __name__ == "__main__":
 
 
 
-	with open('parsed-json.json', 'w') as f:
-		pprint.pprint(parsed, f)
+	with open('static/js/parsed-json.js', 'w') as f:
+
+		s = json.dumps(parsed)
+		f.write('window.elements = ' + s)
 

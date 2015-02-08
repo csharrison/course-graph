@@ -1,7 +1,4 @@
-console.log('hello world!');
-
 $(function() {
-  console.log('on DOM load', document.getElementById('graph'));
   var cy = cytoscape({
     container: document.getElementById('graph'),
 
@@ -9,8 +6,8 @@ $(function() {
       .selector('node')
         .css({
           'background-color': '#362B30',
-          'content': 'data(code)'
-          
+          'content': 'data(number)'
+
         })
       .selector('edge')
         .css({
@@ -36,6 +33,7 @@ $(function() {
   var nodes = cy.nodes()
   var connected = edges.connectedNodes();
   cy.remove(nodes.not(connected));
+
   cy.layout({
   name: 'springy',
 
@@ -55,6 +53,16 @@ $(function() {
   repulsion: 1000,
   damping: 0.5
   })
-  console.log('drawing graph');
-  var bfs = cy.elements().bfs('#a', function(){}, true);
+
+  cy.on('tap', 'node', {}, function(evt) {
+    var node = evt.cyTarget
+    var courseCode = $('<p></p>').text(node.data().code);
+    var courseTitle = $('<p></p>').text(node.data().title);
+    var courseDescription = $('<p></p>').text(node.data().description);
+
+    $('#node_details').html('');
+    $('#node_details').append(courseCode);
+    $('#node_details').append(courseTitle);
+    $('#node_details').append(courseDescription);
+  });
 });
