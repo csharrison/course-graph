@@ -1,7 +1,8 @@
 body, h1, h2, h3, h4, h5, h6, h7, p, a {
-  margin: 10px;
+  margin: 20px;
   padding: 0;
   color: rgba(95, 95, 95);
+  text-align: justify;
 }
 
 #graph {
@@ -20,7 +21,7 @@ body, h1, h2, h3, h4, h5, h6, h7, p, a {
   position: fixed;
   z-index: 1;
   font-family: Helvetica;
-  padding: 1%;
+  padding: 10px;
 }
 
 #sidebar h2 {
