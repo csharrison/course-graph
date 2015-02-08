@@ -6,8 +6,8 @@ $(function() {
       .selector('node')
         .css({
           'background-color': '#362B30',
-          'content': 'data(code)'
-          
+          'content': 'data(number)'
+
         })
       .selector('edge')
         .css({
