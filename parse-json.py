@@ -1,6 +1,8 @@
 import json
 import pprint
 
+
+
 def find_prereqs(description, departments, courses):
 	prereqs = 'Prerequisite'
 	recommended = 'Recommended'
@@ -54,14 +56,22 @@ if __name__ == "__main__":
 		for item in s:
 			if item['name'].find('CSCI') == -1:
 				continue
-			d = item['description']
-			name = item['name']
+
+			try:
+				d = str(item['description'])
+			except UnicodeEncodeError:
+				d = ""
+				#print item['description']
+			name = str(item['name'])
 			dep = name.split(' ')[0]
 			if dep not in departments:
 				departments.add(dep)
-
+			try:
+				title = str(item['title'])
+			except UnicodeEncodeError:
+				title = name
 			n = { 'data' : {
-				'title': item['title'],
+				'title': title,
 				'code': name,
 				'description' : d,
 				'prereqs': [],
@@ -103,7 +113,6 @@ if __name__ == "__main__":
 
 
 
-
 	with open('parsed-json.json', 'w') as f:
-                pprint.pprint(parsed, f)
+		pprint.pprint(parsed, f)
 
