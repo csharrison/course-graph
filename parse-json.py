@@ -73,7 +73,6 @@ if __name__ == "__main__":
 			n = { 'data' : {
 				'title': title,
 				'code': name,
-				'color': 'rgb(0,0,0)',
 				'number': name.split(' ')[-1],
 				'description' : d,
 				'prereqs': [],
