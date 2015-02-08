@@ -35,6 +35,12 @@ $(function() {
   var connected = edges.connectedNodes();
   cy.remove(nodes.not(connected));
 
+  cy.nodes().forEach(function(element, i, eles) {
+    width = element.indegree()*4 + 20;
+    element.css('width', width);
+    element.css('height', width);
+  });
+
   var valid_colors = ['#D9B48F','#FA4D70','#A19887','#C59B8F','#362B30'];
   cy.nodes().each(function(i,element){
     var data = element.data();
@@ -43,24 +49,23 @@ $(function() {
   });
 
   cy.layout({
-  name: 'springy',
+    name: 'springy',
+    animate: true, // whether to show the layout as it's running
+    maxSimulationTime: 10000, // max length in ms to run the layout
+    ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
+    fit: false, // whether to fit the viewport to the graph
+    padding: 30, // padding on fit
+    boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
+    random: false, // whether to use random initial positions
+    infinite: true, // overrides all other options for a forces-all-the-time mode
+    ready: undefined, // callback on layoutready
+    stop: undefined, // callback on layoutstop
 
-  animate: true, // whether to show the layout as it's running
-  maxSimulationTime: 10000, // max length in ms to run the layout
-  ungrabifyWhileSimulating: false, // so you can't drag nodes during layout
-  fit: false, // whether to fit the viewport to the graph
-  padding: 30, // padding on fit
-  boundingBox: undefined, // constrain layout bounds; { x1, y1, x2, y2 } or { x1, y1, w, h }
-  random: false, // whether to use random initial positions
-  infinite: true, // overrides all other options for a forces-all-the-time mode
-  ready: undefined, // callback on layoutready
-  stop: undefined, // callback on layoutstop
-
-  // springy forces
-  stiffness: 400,
-  repulsion: 1000,
-  damping: 0.5
-  })
+    // springy forces
+    stiffness: 400,
+    repulsion: 1000,
+    damping: 0.5
+  });
 
   cy.on('tap', 'node', {}, function(evt) {
     var node = evt.cyTarget
