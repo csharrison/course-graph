@@ -2,6 +2,10 @@ import json
 import pprint
 
 def find_prereqs(description, departments, courses):
+	debug = False
+	if description.count("Advanced programming") > 0:
+		debug = True
+
 	prereqs = 'Prerequisite'
 	recommended = 'Recommended'
 	pidx = description.rfind(prereqs)
@@ -15,18 +19,18 @@ def find_prereqs(description, departments, courses):
 	if ridx != -1:
 		rec_maybe = description[ridx: description.rfind('.', ridx)]
 
-
 	def parse(s):
 		if s == None: return []
 
 		r = []
-		words = s.split(' ')
+		words = s.replace(',','').replace('.','').split(' ')
 		last_dep = None
 		i = 0
 		while i  < len(words):
 			if words[i] in departments:
 				try:
 					maybe = words[i] + ' ' + words[i + 1]
+
 				except IndexError:
 					i += 1
 					continue
